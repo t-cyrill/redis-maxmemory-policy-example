@@ -1,0 +1,33 @@
+Redis maxmemory policy example
+------------------------------
+
+Setup
+-----------------------------
+
+Install redis.And start redis-servers using redis_*.conf
+
+```
+redis-server redis/redis_1.conf
+redis-server redis/redis_2.conf
+redis-server redis/redis_3.conf
+```
+
+Redis server listen 16379,26379,36379 ports.
+Master is 16379 redis, others are slaves.(slaveof 127.0.0.1 16379)
+
+If you want change maxmemory-policy, edit redis/redis_*.conf like this.
+```
+maxmemory-policy volatile-lru
+maxmemory-policy volatile-random
+maxmemory-policy volatile-ttl
+...
+```
+
+Example script is written in Ruby (>= 2.2.0).
+
+```
+bundle install --path=.bundle
+bundle exec ruby example.rb
+```
+
+Scripts print difference of keys between master and slaves.
